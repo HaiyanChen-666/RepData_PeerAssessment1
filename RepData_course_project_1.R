@@ -144,8 +144,11 @@ library(ggplot2)
 
 # Generate the plot
 ggplot(activity, aes(x = interval, y = steps)) + 
-  # Calculate the mean of 'steps' for each 'interval', ignoring NAs, and plot as a line
-  stat_summary(fun = "mean", na.rm = TRUE, geom = "line") + 
-  facet_grid(. ~ group) + # Split the plot into panels based on the 'group' variable
-  labs(x = "Time (5-min intervals)", y = "Average Steps") + # Set labels for the x-axis and y-axis
-  theme_bw()  # Apply the black and white theme to the plot
+  stat_summary(fun = "mean", na.rm = TRUE, geom = "line",color = "skyblue") + 
+  # Split the plot into panels based on the 'group' variable
+  facet_wrap(~ group, ncol = 1,  # ncol=1 ensures vertical stacking
+             strip.position = "top") +  # explicitly place labels at the top  
+  labs(x = "Time (5-min intervals)", y = "Average Steps") + 
+  theme_bw() +  # Apply the black and white theme to the plot
+  theme(strip.position = "top",   # Set facet labels to the top
+        strip.text = element_text(size = 12))  # Adjust label text size
